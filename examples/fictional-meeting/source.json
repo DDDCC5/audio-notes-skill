@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0",
+  "input_sha256": "f1603e59312dc7550af3742c0e3c502b1636993af8b09b74e54be7e1bcf2862e",
+  "input_kind": "text",
+  "provider": "user_text",
+  "duration_seconds": null,
+  "processing": {
+    "status": "complete",
+    "processed_ranges": [],
+    "failed_ranges": [],
+    "warnings": [
+      "用户提供文字稿，未通过原始音频核验。",
+      "空行仅作排版未保存到分段数组；所有非空行内容保留。"
+    ]
+  },
+  "segments": [
+    {
+      "id": "S000001",
+      "text": "【虚构示例，非真实会议】",
+      "start": null,
+      "end": null,
+      "speaker": null
+    },
+    {
+      "id": "S000002",
+      "text": "主持人甲：今天讨论星灯读书会的报名页。目标是在下次活动前完成试用，不是今天直接公开上线。",
+      "start": null,
+      "end": null,
+      "speaker": null
+    },
+    {
+      "id": "S000003",
+      "text": "设计同学乙：可以考虑下周二上线，不过还没有确认。",
+      "start": null,
+      "end": null,
+      "speaker": null
+    },
+    {
+      "id": "S000004",
+      "text": "开发同学丙：测试中有两次提交失败。我会在周五前修复报名校验，并把测试结果发给甲。",
+      "start": null,
+      "end": null,
+      "speaker": null
+    },
+    {
+      "id": "S000005",
+      "text": "主持人甲：同意先做内部试用，等丙的测试结果出来再决定公开上线日期。",
+      "start": null,
+      "end": null,
+      "speaker": null
+    },
+    {
+      "id": "S000006",
+      "text": "设计同学乙：我明天发两版页面文案，方便大家比较。",
+      "start": null,
+      "end": null,
+      "speaker": null
+    },
+    {
+      "id": "S000007",
+      "text": "主持人甲：本次没有确定采购预算。上次说的三百元只是初步估计，不是已批准金额。",
+      "start": null,
+      "end": null,
+      "speaker": null
+    }
+  ]
+}

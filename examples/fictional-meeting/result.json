@@ -1,0 +1,283 @@
+{
+  "schema_version": "1.0",
+  "status": "complete",
+  "title": "星灯读书会报名页内部试用讨论（虚构示例）",
+  "language": "zh-CN",
+  "scenes": [
+    "meeting"
+  ],
+  "source": {
+    "schema_version": "1.0",
+    "input_sha256": "f1603e59312dc7550af3742c0e3c502b1636993af8b09b74e54be7e1bcf2862e",
+    "input_kind": "text",
+    "provider": "user_text",
+    "duration_seconds": null,
+    "processing": {
+      "status": "complete",
+      "processed_ranges": [],
+      "failed_ranges": [],
+      "warnings": [
+        "用户提供文字稿，未通过原始音频核验。",
+        "空行仅作排版未保存到分段数组；所有非空行内容保留。"
+      ]
+    },
+    "segments": [
+      {
+        "id": "S000001",
+        "text": "【虚构示例，非真实会议】",
+        "start": null,
+        "end": null,
+        "speaker": null
+      },
+      {
+        "id": "S000002",
+        "text": "主持人甲：今天讨论星灯读书会的报名页。目标是在下次活动前完成试用，不是今天直接公开上线。",
+        "start": null,
+        "end": null,
+        "speaker": null
+      },
+      {
+        "id": "S000003",
+        "text": "设计同学乙：可以考虑下周二上线，不过还没有确认。",
+        "start": null,
+        "end": null,
+        "speaker": null
+      },
+      {
+        "id": "S000004",
+        "text": "开发同学丙：测试中有两次提交失败。我会在周五前修复报名校验，并把测试结果发给甲。",
+        "start": null,
+        "end": null,
+        "speaker": null
+      },
+      {
+        "id": "S000005",
+        "text": "主持人甲：同意先做内部试用，等丙的测试结果出来再决定公开上线日期。",
+        "start": null,
+        "end": null,
+        "speaker": null
+      },
+      {
+        "id": "S000006",
+        "text": "设计同学乙：我明天发两版页面文案，方便大家比较。",
+        "start": null,
+        "end": null,
+        "speaker": null
+      },
+      {
+        "id": "S000007",
+        "text": "主持人甲：本次没有确定采购预算。上次说的三百元只是初步估计，不是已批准金额。",
+        "start": null,
+        "end": null,
+        "speaker": null
+      }
+    ]
+  },
+  "overview": [
+    {
+      "text": "决定先内部试用；公开上线日期待测试结果后再定。",
+      "source_ids": [
+        "S000005"
+      ]
+    },
+    {
+      "text": "丙承诺周五前修复报名校验并发送测试结果，乙承诺明天发送两版文案。",
+      "source_ids": [
+        "S000004",
+        "S000006"
+      ]
+    },
+    {
+      "text": "采购预算未确定，三百元仅为初步估计。",
+      "source_ids": [
+        "S000007"
+      ]
+    }
+  ],
+  "topics": [
+    {
+      "title": "试用范围与上线条件",
+      "source_ids": [
+        "S000002",
+        "S000003",
+        "S000005"
+      ],
+      "points": [
+        {
+          "text": "目标是下次活动前试用，不是立即公开上线。",
+          "source_ids": [
+            "S000002"
+          ],
+          "kind": "statement"
+        },
+        {
+          "text": "下周二上线仅为乙的未确认提议。",
+          "source_ids": [
+            "S000003"
+          ],
+          "kind": "proposal"
+        },
+        {
+          "text": "先内部试用，收到测试结果后再决定公开日期。",
+          "source_ids": [
+            "S000005"
+          ],
+          "kind": "decision"
+        }
+      ]
+    },
+    {
+      "title": "测试与成本信息",
+      "source_ids": [
+        "S000004",
+        "S000007"
+      ],
+      "points": [
+        {
+          "text": "丙报告测试中有两次提交失败。",
+          "source_ids": [
+            "S000004"
+          ],
+          "kind": "statement"
+        },
+        {
+          "text": "本次没有确定采购预算，三百元不是获批金额。",
+          "source_ids": [
+            "S000007"
+          ],
+          "kind": "statement"
+        }
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "text": "先进行内部试用，公开上线日期待测试结果出来后再决定。",
+      "source_ids": [
+        "S000005"
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "task": "修复报名校验并将测试结果发给甲",
+      "owner": "开发同学丙",
+      "due": "周五前（会议日期未知）",
+      "dependency": null,
+      "source_ids": [
+        "S000004"
+      ]
+    },
+    {
+      "task": "发送两版页面文案供比较",
+      "owner": "设计同学乙",
+      "due": "明天（会议日期未知）",
+      "dependency": null,
+      "source_ids": [
+        "S000006"
+      ]
+    }
+  ],
+  "chapters": [
+    {
+      "text": "讨论试用目标、暂定上线提议及测试门槛。",
+      "source_ids": [
+        "S000002",
+        "S000003",
+        "S000004",
+        "S000005"
+      ],
+      "title": "试用与上线安排",
+      "start": null
+    },
+    {
+      "text": "明确文案交付与预算尚未批准。",
+      "source_ids": [
+        "S000006",
+        "S000007"
+      ],
+      "title": "文案与预算",
+      "start": null
+    }
+  ],
+  "quotes": [
+    {
+      "text": "上次说的三百元只是初步估计，不是已批准金额。",
+      "source_ids": [
+        "S000007"
+      ]
+    }
+  ],
+  "analysis": [
+    {
+      "observation": "公开上线以测试结果为前提，且存在已报告的提交失败。",
+      "interpretation": "上线计划受到报名校验修复与验证结果约束。",
+      "recommendation": "建议在试用前明确通过标准，并将失败场景纳入回归测试。",
+      "limitations": "原文没有给出失败原因、严重程度或验收标准；这些建议尚未获参与者确认。",
+      "source_ids": [
+        "S000004",
+        "S000005"
+      ]
+    }
+  ],
+  "uncertainties": [
+    {
+      "text": "没有会议日期，“明天”和“周五前”不能转换成确定年月日。",
+      "source_ids": [
+        "S000004",
+        "S000006"
+      ]
+    },
+    {
+      "text": "公开上线日期与采购预算未定。",
+      "source_ids": [
+        "S000005",
+        "S000007"
+      ]
+    }
+  ],
+  "clean_segments": [
+    {
+      "text": "【虚构示例，非真实会议】",
+      "source_ids": [
+        "S000001"
+      ]
+    },
+    {
+      "text": "主持人甲：今天讨论星灯读书会的报名页。目标是在下次活动前完成试用，不是今天直接公开上线。",
+      "source_ids": [
+        "S000002"
+      ]
+    },
+    {
+      "text": "设计同学乙：可以考虑下周二上线，不过还没有确认。",
+      "source_ids": [
+        "S000003"
+      ]
+    },
+    {
+      "text": "开发同学丙：测试中有两次提交失败。我会在周五前修复报名校验，并把测试结果发给甲。",
+      "source_ids": [
+        "S000004"
+      ]
+    },
+    {
+      "text": "主持人甲：同意先做内部试用，等丙的测试结果出来再决定公开上线日期。",
+      "source_ids": [
+        "S000005"
+      ]
+    },
+    {
+      "text": "设计同学乙：我明天发两版页面文案，方便大家比较。",
+      "source_ids": [
+        "S000006"
+      ]
+    },
+    {
+      "text": "主持人甲：本次没有确定采购预算。上次说的三百元只是初步估计，不是已批准金额。",
+      "source_ids": [
+        "S000007"
+      ]
+    }
+  ]
+}
