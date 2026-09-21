@@ -22,6 +22,20 @@ DISCLAIMER = ("本内容由 AI 基于所提供材料整理，可能存在转写�
 ROOT = Path(__file__).resolve().parent.parent
 
 
+def console(message, *, file=None):
+    """Keep legacy terminal encoding failures from breaking successful processing.
+
+    Do not reconfigure host streams; unsupported glyphs are escaped in logs only.
+    Source records and generated documents remain UTF-8 without replacements.
+    """
+    stream = sys.stdout if file is None else file
+    encoding = getattr(stream, "encoding", None)
+    text = str(message)
+    if encoding:
+        text = text.encode(encoding, errors="backslashreplace").decode(encoding)
+    print(text, file=stream)
+
+
 def load(path):
     return json.loads(Path(path).read_text(encoding="utf-8-sig"))
 
@@ -464,7 +478,7 @@ def transcribe_audio(args):
             # Never echo provider error bodies, headers, secrets or private filenames.
             failed.append({"start": start, "end": start + length, "reason": type(exc).__name__})
             save(checkpoint, {"status": "failed", "error_type": type(exc).__name__})
-            print(f"分段 {index} 失败（{type(exc).__name__}）；为避免重复计费已停止。", file=sys.stderr)
+            console(f"分段 {index} 失败（{type(exc).__name__}）；为避免重复计费已停止。", file=sys.stderr)
             if index + 1 < count:
                 failed.append({"start": (index + 1) * args.chunk_seconds, "end": duration, "reason": "not_attempted"})
             break
@@ -480,7 +494,7 @@ def transcribe_audio(args):
             persist_source(out, doc)
     if failed:
         return 2
-    print("转写计划执行完成；请检查 source.json 的范围、空段和限制，再让 Agent 总结。")
+    console("转写计划执行完成；请检查 source.json 的范围、空段和限制，再让 Agent 总结。")
     return 0
 
 
@@ -526,37 +540,37 @@ def main(argv=None):
                     result[name] = True
                 except ValueError:
                     result[name] = False
-            print(json.dumps(result, ensure_ascii=False, indent=2))
+            console(json.dumps(result, ensure_ascii=False, indent=2))
         elif args.command == "import-text":
             if Path(args.out, "source.json").exists():
                 raise ValueError("已有 source.json，请使用新输出目录以免覆盖。")
             persist_source(args.out, import_text(args.input))
-            print("文字导入完成；原文件未修改。")
+            console("文字导入完成；原文件未修改。")
         elif args.command == "skeleton":
             if Path(args.out).exists():
                 raise ValueError("结果文件已存在，拒绝覆盖。")
             save(args.out, skeleton(load(args.source)))
-            print("已创建 draft 骨架；请由 Agent 填写，未生成纪要。")
+            console("已创建 draft 骨架；请由 Agent 填写，未生成纪要。")
         elif args.command in ("validate", "render"):
             result = load(args.result)
             errors = collect_validation_errors(result, load(args.source))
             if errors:
-                print("校验失败：\n- " + "\n- ".join(errors), file=sys.stderr)
+                console("校验失败：\n- " + "\n- ".join(errors), file=sys.stderr)
                 return 2
             if not importlib.util.find_spec("jsonschema"):
-                print("语义校验通过；未安装 jsonschema，完整 Schema 校验未执行。")
+                console("语义校验通过；未安装 jsonschema，完整 Schema 校验未执行。")
             else:
-                print("Schema 与语义校验通过；不代表事实已核验。")
+                console("Schema 与语义校验通过；不代表事实已核验。")
             if args.command == "render":
                 render(result, args.out)
-                print("已生成三份 Markdown 和 result.json。")
+                console("已生成三份 Markdown 和 result.json。")
         elif args.command == "transcribe":
             return transcribe_audio(args)
         return 0
     except (ValueError, OSError, KeyError, TypeError) as exc:
         # Show curated ValueErrors only; do not leak arbitrary input paths/contents.
         message = str(exc) if type(exc) is ValueError else "输入、文件或结构异常；请检查本地文件及参数。"
-        print(message, file=sys.stderr)
+        console(message, file=sys.stderr)
         return 2
 
 

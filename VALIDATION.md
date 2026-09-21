@@ -1,5 +1,12 @@
 # 验证状态
 
+## 2026-09-21 编码兼容性修复
+首轮 GitHub CI 在 Windows/Python 3.10 上出现 cp1252 打印中文的 UnicodeEncodeError；macOS 3.10 与 Windows 3.12 被 fail-fast 取消，而非独立检测失败。其他三组通过。
+
+已修复终端日志输出并添加回归测试。本地 Windows/Python 3.10.11 在 `PYTHONIOENCODING=cp1252:strict`、`PYTHONUTF8=0` 下 **35 项测试全部通过**，Schema 与语义校验通过。生成文件继续使用完整 UTF-8，不转义或替换源文内容。新版 GitHub CI 结果以仓库 Actions 中对应提交记录为准；不以本地成功代替云端验证。
+
+以下为首版原始验证记录（历史快照）：
+
 验证日期：2026-09-18。状态针对 0.1.0，不能推断后续版本或其他机器已通过。
 
 ## 本次实际执行

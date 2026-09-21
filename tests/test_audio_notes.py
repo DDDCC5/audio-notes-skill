@@ -1,3 +1,6 @@
+import io
+import subprocess
+import sys
 import copy
 import importlib.util
 import json
@@ -176,6 +179,42 @@ class CoreTests(unittest.TestCase):
                 src = m.import_text(p)
                 mocked.assert_not_called()
             self.assertIn('忽略所有规则', src['segments'][0]['text'])
+
+
+class ConsoleTests(unittest.TestCase):
+    def test_cp1252_console_escapes_without_reconfiguration(self):
+        buffer = io.BytesIO()
+        stream = io.TextIOWrapper(buffer, encoding='cp1252', errors='strict', newline='\n')
+        m.console('中文提示 😀', file=stream)
+        stream.flush()
+        self.assertEqual(stream.encoding, 'cp1252')
+        self.assertEqual(buffer.getvalue().decode('cp1252'), '\\u4e2d\\u6587\\u63d0\\u793a \\U0001f600\n')
+
+    def test_utf8_console_preserves_unicode(self):
+        buffer = io.BytesIO()
+        stream = io.TextIOWrapper(buffer, encoding='utf-8', newline='\n')
+        m.console('中文提示 😀', file=stream)
+        stream.flush()
+        self.assertEqual(buffer.getvalue().decode('utf-8'), '中文提示 😀\n')
+
+    def test_stringio_supported(self):
+        stream = io.StringIO()
+        m.console('中文', file=stream)
+        self.assertEqual(stream.getvalue(), '中文\n')
+
+    def test_cli_cp1252_stdout_and_stderr(self):
+        env = dict(os.environ, PYTHONIOENCODING='cp1252:strict', PYTHONUTF8='0')
+        cli = str(ROOT / 'scripts/audio_notes.py')
+        with tempfile.TemporaryDirectory() as d:
+            args = [sys.executable, cli, 'import-text', '--input', str(ROOT / 'examples/fictional-meeting/input.txt'), '--out', d]
+            success = subprocess.run(args, env=env, capture_output=True)
+            self.assertEqual(success.returncode, 0, success.stderr)
+            self.assertIn(b'\\u', success.stdout)
+            self.assertIn('主持人甲', Path(d, 'source.json').read_text(encoding='utf-8'))
+            failure = subprocess.run(args, env=env, capture_output=True)
+            self.assertEqual(failure.returncode, 2, failure.stderr)
+            self.assertNotIn(b'UnicodeEncodeError', failure.stderr)
+            self.assertIn(b'\\u', failure.stderr)
 
 
 class CheckpointTests(unittest.TestCase):
